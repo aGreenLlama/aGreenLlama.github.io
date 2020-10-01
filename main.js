@@ -2,7 +2,8 @@
 var app = new PIXI.Application({
     width: window.innerWidth,
     height: window.innerHeight,
-    backgroundColor: 0x2c3e50
+    backgroundColor: 0x2c3e50,
+    //forceCanvas:true
 });
 document.body.appendChild(app.view);
 
@@ -11,21 +12,26 @@ app.loader.add('bunny', 'https://pixijs.io/examples/examples/assets/bunny.png')
 
 function startup()
 {
-    var bunny = new PIXI.mesh.Mesh(app.loader.resources.bunny.texture);
+    const container = new PIXI.Container();
+    var bunny = new PIXI.Sprite(app.loader.resources.bunny.texture);
+    container.addChild (bunny);
+    var g = new PIXI.Graphics ()
+        .drawRect (1800,950,1000,100);
 
+    container.mask = g;
+    container.addChild (g);
+
+    app.stage.addChild (g);
+
+    bunny.scale.set (10, 10);
     bunny.x = app.renderer.width / 2;
     bunny.y = app.renderer.height / 2;
 
-    bunny.tint = 0;
 
-    const text = new PIXI.Text(app.renderer.type)
-
-    app.stage.addChild(bunny);
-    app.stage.addChild(text);
-
+    app.stage.addChild(container);
 
     app.ticker.add(function(delta)
     {
-        bunny.rotation += 0.1 * delta;
+        //g.rotation += 0.1 * delta;
     });
 }
