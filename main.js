@@ -16,12 +16,10 @@ function startup()
     var bunny = new PIXI.Sprite(app.loader.resources.bunny.texture);
     container.addChild (bunny);
     var g = new PIXI.Graphics ()
-        .drawRect (1800,950,1000,100);
+        .drawRect (1800,980,1000,100);
 
     container.mask = g;
     container.addChild (g);
-
-    app.stage.addChild (g);
 
     bunny.scale.set (10, 10);
     bunny.x = app.renderer.width / 2;
